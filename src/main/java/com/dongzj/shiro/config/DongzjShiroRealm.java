@@ -36,6 +36,12 @@ public class DongzjShiroRealm extends AuthorizingRealm {
     @Autowired
     private UserInfoService userInfoService;
 
+    /**
+     * 授权
+     *
+     * @param principalCollection
+     * @return
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("权限配置-->DongzjShiroRealm.doGetAuthorizationInfo()");
@@ -50,6 +56,13 @@ public class DongzjShiroRealm extends AuthorizingRealm {
         return authenticationInfo;
     }
 
+    /**
+     * 认证
+     *
+     * @param token
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         System.out.println("DongzjShiroRealm.doGetAuthorizationInfo()");

@@ -2,6 +2,7 @@ package com.dongzj.shiro.web;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -16,10 +17,11 @@ public class UserInfoController {
 
     /**
      * 用户查询
+     * 权限管理
      *
      * @return
      */
-    @RequestMapping("/userList")
+    @GetMapping("/userList")
     @RequiresPermissions("userInfo:view")
     public String userInfo() {
         return "userInfo";
@@ -30,7 +32,7 @@ public class UserInfoController {
      *
      * @return
      */
-    @RequestMapping("/userAdd")
+    @GetMapping("/userAdd")
     @RequiresPermissions("userInfo:add")
     public String userInfoAdd() {
         return "userInfoAdd";
@@ -41,7 +43,7 @@ public class UserInfoController {
      *
      * @return
      */
-    @RequestMapping("/userDel")
+    @GetMapping("/userDel")
     @RequiresPermissions("userInfo:del")
     public String userDel() {
         return "userInfoDel";

@@ -22,6 +22,11 @@ import java.util.Properties;
 @Configuration
 public class ShiroConfig {
 
+    /**
+     * ShiroFilterFactoryBean 处理拦截资源文件问题
+     * @param securityManager
+     * @return
+     */
     @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         System.out.println("ShiroConfiguration.shiroFilter");
@@ -48,7 +53,8 @@ public class ShiroConfig {
     }
 
     /**
-     * 凭证匹配器（由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了）
+     * 凭证匹配器
+     * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了）
      *
      * @return
      */
@@ -57,7 +63,7 @@ public class ShiroConfig {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
         //散列算法
         hashedCredentialsMatcher.setHashAlgorithmName("md5");
-        //散列次数，比如散列两次，相当于md5(mdg(""))
+        //散列次数，比如散列两次，相当于md5(md5(""))
         hashedCredentialsMatcher.setHashIterations(2);
         return hashedCredentialsMatcher;
     }
@@ -65,12 +71,14 @@ public class ShiroConfig {
     @Bean
     public DongzjShiroRealm dongzjShiroRealm() {
         DongzjShiroRealm dongzjShiroRealm = new DongzjShiroRealm();
+        dongzjShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return dongzjShiroRealm;
     }
 
     @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        //配置realm
         securityManager.setRealm(dongzjShiroRealm());
         return securityManager;
     }
@@ -89,6 +97,11 @@ public class ShiroConfig {
         return authorizationAttributeSourceAdvisor;
     }
 
+    /**
+     * 异常处理
+     *
+     * @return
+     */
     @Bean(name = "simpleMappingExceptionResolver")
     public SimpleMappingExceptionResolver createSimpleMappingExceptionResolver() {
         SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();

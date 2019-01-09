@@ -55,7 +55,7 @@ public class UserInfo implements Serializable {
 
     /**
      * 一个用户具有多个角色
-     * 立即从数据库中加载数据
+     * FetchType.EAGER：立即从数据库中加载数据
      */
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "SysUserRole", joinColumns = {@JoinColumn(name = "uid")})

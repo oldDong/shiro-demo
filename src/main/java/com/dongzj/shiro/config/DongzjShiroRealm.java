@@ -37,7 +37,7 @@ public class DongzjShiroRealm extends AuthorizingRealm {
     private UserInfoService userInfoService;
 
     /**
-     * 授权
+     * 授权（获取用户的权限信息）
      *
      * @param principalCollection
      * @return
@@ -45,11 +45,14 @@ public class DongzjShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("权限配置-->DongzjShiroRealm.doGetAuthorizationInfo()");
+        //给当前用户授权的权限（角色、功能权限）
         SimpleAuthorizationInfo authenticationInfo = new SimpleAuthorizationInfo();
         UserInfo userInfo = (UserInfo) principalCollection.getPrimaryPrincipal();
         for (SysRole role : userInfo.getRoleList()) {
+            //添加角色
             authenticationInfo.addRole(role.getRole());
             for (SysPermission p : role.getPermissions()) {
+                //添加权限
                 authenticationInfo.addStringPermission(p.getPermission());
             }
         }

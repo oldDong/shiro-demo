@@ -11,5 +11,11 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface UserInfoDao extends CrudRepository<UserInfo, Long> {
 
-    public UserInfo findByUsername(String username);
+    /**
+     * 通过username查找用户信息
+     *
+     * @param username
+     * @return
+     */
+    UserInfo findByUsername(String username);
 }

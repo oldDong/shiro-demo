@@ -41,7 +41,7 @@ public class SysRole {
     /**
      * 角色  -- 权限关系：多对多关系
      */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "SysRolePermission", joinColumns = {@JoinColumn(name = "roleId")})
     private List<SysPermission> permissions;
 

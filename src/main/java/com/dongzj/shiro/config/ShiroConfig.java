@@ -24,6 +24,7 @@ public class ShiroConfig {
 
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件问题
+     *
      * @param securityManager
      * @return
      */

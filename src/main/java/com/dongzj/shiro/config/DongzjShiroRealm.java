@@ -76,13 +76,13 @@ public class DongzjShiroRealm extends AuthorizingRealm {
         //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
         UserInfo userInfo = userInfoService.findByUsername(username);
         if (userInfo == null) {
-            return null;
+            throw new AuthenticationException(username + "不存在");
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 userInfo,   //用户名
                 userInfo.getPassword(),     //密码
                 ByteSource.Util.bytes(userInfo.getCredentialsSalt()),   //salt = username+salt
-                userInfo.getName());    //real name
+                getName());    //realm name
 
         return authenticationInfo;
     }
